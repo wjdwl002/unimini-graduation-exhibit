@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+
+</head>
+<body class="cursor-png">
+    <header>
+        <div id="headerMsg">
+            <span>Fill empty space with culture. Interact with through culture. Expand your Horizons from interation. Fill empty space with culture. Interact with through culture. Expand your Horizons from interation. Fill empty space with culture. Interact with through culture. Expand your Horizons from interation. Fill empty space with culture. Interact with through culture. Expand your Horizons from interation. Fill empty space with culture. Interact with through culture. Expand your Horizons from interation. Fill empty space with culture. Interact with through culture. Expand your Horizons from interation. </span>
+        </div>
+    </header>
+    <div id="app">
+        <div id="app1">
+            <div class="title">
+                <hr id="hr1">
+                <span id="b">CAMPUS LIFE</span>
+                <div id="diaContainer">
+                    <div id="dia1"></div>
+                    <div id="dia2"></div>
+                </div>
+                <span id="s">대학생의 특권! 대학교에서만 즐길 수 있는 캠퍼스 로망에 대해 자유롭게 적어보세요!</span>
+                <hr id="hr2">
+            </div>
+            <div id="chatStream">
+            </div>
+            <div class="input">
+                <input id="chat" type="text">
+                <button onclick="submitChat()">입력!</button>
+            </div>
+        </div>
+        <div id="app2">
+            <div class="title">
+                <hr id="hr3">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    const STREAM = document.getElementById("chatStream");
+    function submitChat(){
+        const input = document.getElementById("chat").value;
+        if(input != '') {
+            document.getElementById("chat").value = "";
+            const STREAM = document.getElementById("chatStream");
+            appendChat(input, STREAM);
+            saveLocalStorage(input);
+        }
+    }
+
+    function appendChat(input, stream){
+        var li = document.createElement("li");
+        var span = document.createElement("span")
+        span.innerText = input;
+        li.setAttribute("class","eachChat");
+        li.appendChild(span);
+        stream.appendChild(li);
+    }
+
+    function saveLocalStorage(input){
+        var chats = localStorage.getItem('chats');
+        chats = JSON.parse(chats);
+        chats.push(input);
+        chats = JSON.stringify(chats);
+        localStorage.setItem('chats',chats);
+    }
+
+    function loadChat(){
+        var chats = getChats();
+        if(chats){
+            for(var i =0; i<chats.length; i++){
+                appendChat(chats[i], STREAM)
+            }
+        }
+        console.log(chats);
+    }
+
+    function getChats() {
+        return JSON.parse(localStorage.getItem('chats')) || [];
+    }
+    
+    loadChat();
+    
+
+</script>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    input:focus,button:focus{
+        outline: none;
+    }
+    button:hover{
+        background-color: #ff3a6b;
+    }
+    li{
+        list-style: none;
+        animation: message 0.5s;
+    }
+    input{
+        width:70%;
+        height:60%;
+        border:none;
+        border-radius: 30px;
+        font-size: 27px;
+        padding-left: 30px;
+    }
+    button{
+        width:10%;
+        margin:40px;
+        height:60%;
+        background-color: #07c076;
+        border:none;
+        border-radius: 30px;
+        color:white;
+        font-size: 27px;
+        font-weight: 800;
+    }
+    .eachChat{
+        background-color: #232323;
+        width:fit-content;
+        padding: 10px 20px;
+        color:#fffaf2;
+        border-radius: 20px;
+        border: 1px solid #fffaf2;
+        margin:20px;
+    }
+    html{
+        width:100%;
+        height:100%;
+        font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif !important;
+        cursor: url("img/cursor.png"), auto;
+    }
+    body{
+        background-color: #232323;
+        width:100%;
+        height:100%;
+        margin:0px;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        cursor: url("img/cursor.png"), auto;
+
+    }
+    .cursor-png {
+        cursor: url("img/cursor.png")  !important;
+	}
+    header{
+        color : #fffaf2;
+        width:100%;
+        height:40px;
+        overflow-x: auto;
+        position: fixed;
+    }
+    #headerMsg{
+        display: flex;
+        align-items: center;
+        width:100%;
+        height:40px;
+    }
+    #headerMsg span{
+        position: relative;
+        white-space: nowrap;
+        animation: move 14s linear infinite;
+    }
+    @keyframes move {
+        0%{
+            right:0%;
+        }
+        100%{
+            right:90%;
+        }
+    }
+    #app{
+        display: flex;
+        width:100%;
+        height:100%;
+    }
+    #app1{
+        display: flex;
+        flex-direction: column;
+        height: 90%;
+        width:100%;
+        position: relative;
+        top:100px;
+        justify-content: space-between;
+    }
+    #app2 .title{
+        position: relative;
+        top:100px;
+    }
+    #app2{
+        background-color: #07c076;
+        height:100%;
+        width:107px;
+    }
+    #diaContainer{
+        width: auto;
+        height:100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #dia1{
+        width:80px;
+        height:70%;
+        background-image: url("./img/w1.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        animation: blinkDia1 1s linear infinite;
+    }
+    #dia2{
+        width:80px;
+        height:70%;
+        background-image: url("./img/w2.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        animation: blinkDia2 1s linear infinite;
+    }
+    @keyframes blinkDia1 {
+        0%{
+            background-image: url("./img/w1.png");
+        }
+        49%{
+            background-image: url("./img/w1.png");
+        }
+        50%{
+            background-image: url("./img/g1.png");
+        }
+        100%{
+            background-image: url("./img/g1.png");
+        }
+    }
+    @keyframes blinkDia2 {
+        0%{
+            background-image: url("./img/w2.png");
+        }
+        49%{
+            background-image: url("./img/w2.png");
+        }
+        50%{
+            background-image: url("./img/g2.png");
+        }
+        100%{
+            background-image: url("./img/g2.png");
+        }
+    }
+    .title{
+        width:100%;
+        height:100px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    hr{
+        margin:0px;
+    }
+    #hr1{
+        width:80px;
+        border:solid 2px #07c076;
+    }
+    #hr2{
+        width:80px;        
+        border:solid 2px #07c076;
+    }
+    #hr3{
+        width:100%;
+        border:solid 2px #232323;
+    }
+    #b{
+        color:#fffaf2;
+        font-size: 80px;
+        font-weight:900;
+        line-height:1.85;
+        animation: blink 1s  infinite;
+    }
+    @keyframes blink {
+        0%{
+            color:#07c076
+        }
+        49%{
+            color:#07c076
+        }
+        50%{
+            color: #fffaf2;
+        }
+    }
+    #s{
+        color:#fffaf2;
+        font-size: 20px;
+        font-weight:600;
+        color:#07c076
+    }
+    #chatStream{
+        width:89%;
+        position: relative;
+        left:10%;
+        height:60%;
+        overflow-y: auto;
+    }
+    #chatStream::-webkit-scrollbar{
+        background-color: #232323;
+    }
+    #chatStream::-webkit-scrollbar-thumb{
+        background-color:#ff3a6b;
+    }
+    .input{
+        width:100%;
+        height:10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
