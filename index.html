@@ -97,8 +97,19 @@
         background-color: #ff3a6b;
     }
     li{
+        position: relative;
         list-style: none;
         animation: message 0.5s;
+    }
+    @keyframes message {
+        0%{
+            top:20px;
+            left:-10px;
+        }
+        100%{
+            top:0px;
+            left:0px;
+        }
     }
     input{
         width:70%;
