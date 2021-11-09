@@ -29,7 +29,7 @@
             <div id="chatStream">
             </div>
             <div class="input">
-                <input id="chat" type="text">
+                <input id="chat" type="text" onkeypress="press()">
                 <button onclick="submitChat()">입력!</button>
             </div>
         </div>
@@ -42,6 +42,10 @@
 </body>
 </html>
 <script>
+    function press(){ 
+        if(window.event.keyCode == 13)
+        submitChat();
+    }
     const STREAM = document.getElementById("chatStream");
     function submitChat(){
         const input = document.getElementById("chat").value;
@@ -84,8 +88,12 @@
         return JSON.parse(localStorage.getItem('chats')) || [];
     }
     
+    function createLocalStorage(){
+        if(!localStorage.getItem('chats')) localStorage.setItem('chats','[1]');
+    }
+
     loadChat();
-    
+    createLocalStorage();
 
 </script>
 <style>
@@ -104,28 +112,26 @@
     @keyframes message {
         0%{
             top:20px;
-            left:-10px;
         }
         100%{
             top:0px;
-            left:0px;
         }
     }
     input{
         width:70%;
         height:60%;
         border:none;
-        border-radius: 30px;
+        border-radius: 24px;
         font-size: 27px;
         padding-left: 30px;
     }
     button{
         width:10%;
-        margin:40px;
+        margin-left:40px;
         height:60%;
         background-color: #07c076;
         border:none;
-        border-radius: 30px;
+        border-radius: 24px;
         color:white;
         font-size: 27px;
         font-weight: 800;
@@ -171,6 +177,9 @@
         width:100%;
         height:40px;
     }
+    span{
+        white-space: nowrap;
+    }
     #headerMsg span{
         position: relative;
         white-space: nowrap;
@@ -195,12 +204,12 @@
         height: 90%;
         width:100%;
         position: relative;
-        top:100px;
+        top:60px;
         justify-content: space-between;
     }
     #app2 .title{
         position: relative;
-        top:100px;
+        top:60px;
     }
     #app2{
         background-color: #07c076;
@@ -269,11 +278,11 @@
         margin:0px;
     }
     #hr1{
-        width:80px;
+        width:100px;
         border:solid 2px #07c076;
     }
     #hr2{
-        width:80px;        
+        width:100px;        
         border:solid 2px #07c076;
     }
     #hr3{
@@ -316,10 +325,12 @@
     }
     #chatStream::-webkit-scrollbar-thumb{
         background-color:#ff3a6b;
+        border-radius: 10px;
     }
     .input{
         width:100%;
-        height:10%;
+        height:13%;
+        margin-bottom:20px;
         display: flex;
         justify-content: center;
         align-items: center;
